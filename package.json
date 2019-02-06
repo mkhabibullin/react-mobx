@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-proposal-decorators": "^7.3.0",
     "@svgr/webpack": "2.4.1",
     "@types/jest": "24.0.0",
     "@types/node": "10.12.21",
     "@types/react": "16.8.1",
     "@types/react-dom": "16.0.11",
+    "@types/react-router": "^4.4.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
@@ -49,6 +52,7 @@
     "react-app-polyfill": "^0.2.0",
     "react-dev-utils": "^7.0.1",
     "react-dom": "^16.8.0",
+    "react-router": "^4.3.1",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
@@ -117,13 +121,22 @@
   },
   "babel": {
     "plugins": [
-      "@babel/plugin-proposal-decorators"
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
     ],
     "presets": [
       "react-app"
     ]
   },
-  "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.3.0"
-  }
+  "devDependencies": {}
 }
