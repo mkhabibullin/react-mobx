@@ -1,14 +1,25 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "removeComments": true,
-    "experimentalDecorators": true,
-    "jsx": "react",
-    "outDir": "dist",
-    "lib": ["dom", "es2015"]
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve"
   },
-  "exclude": [
-    "node_modules",
-    "static"
+  "include": [
+    "src"
   ]
 }
