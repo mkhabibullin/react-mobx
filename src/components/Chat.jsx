@@ -41,8 +41,7 @@ class Chat extends Component {
       sendMessage = () => {
         this.state.hubConnection
           .invoke('send', this.state.nick, this.state.message)
-          .catch(err => console.error(err));
-    
+          .catch(err => console.error(err));    
           this.setState({message: ''});
       };
     

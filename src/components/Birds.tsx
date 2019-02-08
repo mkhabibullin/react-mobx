@@ -3,7 +3,7 @@ import { inject, observer } from "mobx-react";
 import { BirdStore } from './../stores/BirdStore';
 import { RouteComponentProps } from "react-router";
 
-export interface BridsProps extends RouteComponentProps {
+export interface BridsProps extends RouteComponentProps<any> {
     /** MobX Stores will be injected via @inject() **/
     // [STORE_ROUTER]: RouterStore;
     // [STOURE_TODO]: TodoStore;
@@ -12,9 +12,9 @@ export interface BridsProps extends RouteComponentProps {
 export interface BirdsState {
 }
 
-@inject("BirdStore")
+@inject("birdsStore")
 @observer
-export default class Birds extends React.Component<any, BirdsState> {
+export default class Birds extends React.Component<BridsProps, BirdsState> {
 
     constructor(props: BridsProps, context: any){
         super(props, context);
@@ -25,13 +25,13 @@ export default class Birds extends React.Component<any, BirdsState> {
 
     handleSubmit = (e: any) => {
         e.preventDefault();
-        const store = this.props['BirdStore'] as BirdStore;
+        const store = this.props['birdsStore'] as BirdStore;
         store.addBird(this.birdInput ? this.birdInput.value : '');
         e.target.reset();
         };
 
     render() {
-        const someStore = this.props['BirdStore'] as BirdStore;
+        const someStore = this.props['birdsStore'] as BirdStore;
 
         return (
         <div>

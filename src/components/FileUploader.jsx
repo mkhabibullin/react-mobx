@@ -8,7 +8,6 @@ class FileUploader extends Component {
         var formData = new FormData();
         var files = document.querySelector('input[type="file"]').files;
 
-        debugger;
         for (let i=0; i<files.length; i++) 
         {
             formData.append('files[]', files[i], files[i].name);

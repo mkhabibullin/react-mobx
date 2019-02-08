@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { Provider } from 'mobx-react'
+import { Router, Route, withRouter } from 'react-router';
 import './App.css';
-import singeltone from './stores/BirdStore';
 import Birds from './components/Birds'
 import Chat from './components/Chat'
 import FileUploader from './components/FileUploader'
+import { inject, observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
-class App extends Component {
+@inject('routing')
+@observer
+class App extends Component<any, any> {
   render() {
-    const bs = singeltone;
+    const { push, goBack } = this.props.routing;
     return (
-      <Provider BirdStore={bs}>
         <div>
-          <Birds/>
-          <Chat/>
-          <FileUploader/>
-          </div>
-      </Provider>
+          <Link to='/birds'>Birds</Link>
+          <button onClick={() => push('/birds')}>Change url</button>
+          <button onClick={() => goBack()}>Go Back</button>
+          <Route exact path="/" component={Chat} />
+          <Route exact path="/birds" component={Birds} />
+          <Route path="/files" component={FileUploader} />
+        </div>
     );
   }
 }
