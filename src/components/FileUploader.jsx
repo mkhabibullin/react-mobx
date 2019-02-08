@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import FilesStore from '../services/stores/FilesStore';
 
-class FileUploader extends Component {
+export interface FilesProps extends RouteComponentProps<any> {
+    /** MobX Stores will be injected via @inject() **/
+    // [STORE_ROUTER]: RouterStore;
+    // [STOURE_TODO]: TodoStore;
+  }
+
+export interface FilesState {
+}
+
+class FileUploader extends Component<FilesProps, FilesState> {
+
+
+    componentDidMount() {
+        this.props.
+    }
 
     fileUpload()
     {
