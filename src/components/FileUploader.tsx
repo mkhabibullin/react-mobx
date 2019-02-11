@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { RouteComponentProps } from 'react-router';
 import FilesStore from '../services/stores/FilesStore';
+import { inject, observer } from 'mobx-react';
 
 export interface FilesProps extends RouteComponentProps<any> {
     /** MobX Stores will be injected via @inject() **/
@@ -11,17 +13,18 @@ export interface FilesProps extends RouteComponentProps<any> {
 export interface FilesState {
 }
 
+@inject("filesStore")
+@observer
 class FileUploader extends Component<FilesProps, FilesState> {
 
-
     componentDidMount() {
-        this.props.
+        this.props['filesStore'].getDirectories();
     }
 
     fileUpload()
     {
         var formData = new FormData();
-        var files = document.querySelector('input[type="file"]').files;
+        var files = (document.querySelector('input[type="file"]') as any).files;
 
         for (let i=0; i<files.length; i++) 
         {
@@ -36,12 +39,15 @@ class FileUploader extends Component<FilesProps, FilesState> {
     }
 
     render() {
+        const directories = this.props['filesStore'].Directories;
     return (
         <div>
             <div>
                 <input type="file" name="files" multiple/>
             </div>
             <button onClick={this.fileUpload.bind(this)}>Upload</button>
+
+            {(directories || []).map(d => d.name)}
         </div>
     );
     }

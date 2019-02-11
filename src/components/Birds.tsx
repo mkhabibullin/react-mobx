@@ -1,6 +1,6 @@
 import * as React from "react";
 import { inject, observer } from "mobx-react";
-import { BirdStore } from './../stores/BirdStore';
+import { BirdStore } from '../services/stores/BirdStore';
 import { RouteComponentProps } from "react-router";
 
 export interface BridsProps extends RouteComponentProps<any> {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 
-class Chat extends Component {
+class Chat extends Component<any, any> {
     constructor(props) {
         super(props);
     

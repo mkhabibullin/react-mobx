@@ -5,11 +5,11 @@ class FilesStore {
 
     @observable public Directories: Array<any> = new Array();
 
-    @action
+    // @action
     public getDirectories(): Promise<any> {
         return filesActions.getDirectories()
             .then(r => {
-                this.Directories = r;
+                this.Directories = r.data;
             });
     }
 }

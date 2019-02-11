@@ -10,10 +10,10 @@ class App extends Component<any, any> {
   render() {
     return (
         <div className="App">
-            <Link to='/' className="App-link">Home</Link>
-            <Link to='/birds' className="App-link">Birds</Link>
-            <Link to='/files' className="App-link">Files</Link>
-            <GlobalNavigation></GlobalNavigation>
+          <Link to='/' className="App-link">Home</Link>
+          <Link to='/birds' className="App-link">Birds</Link>
+          <Link to='/files' className="App-link">Files</Link>
+          <GlobalNavigation></GlobalNavigation>
         </div>
     );
   }
