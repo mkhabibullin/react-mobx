@@ -1,16 +1,16 @@
 import { action, observable } from "mobx";
 import filesActions from '../actions/FileActions';
-import axios from 'axios';
+import DirectoryItemModel from "../../Models/DirectoryItemModel";
 
 class FilesStore {
 
-    @observable public Directories: Array<any> = new Array();
+    @observable public Directories: Array<DirectoryItemModel> = new Array<DirectoryItemModel>();
 
-    @action
+    @action.bound
     public getDirectories(): Promise<any> {
         return filesActions.getDirectories()
             .then(r => {
-                this.Directories = r;
+                this.Directories = r.map(d => new DirectoryItemModel(d.name, new Date(d.createdAt)));
             });
     }
 
@@ -22,7 +22,28 @@ class FilesStore {
                 this.getDirectories()
             });
     }
+
+    @action.bound
+    public delete(id: string)
+    {
+        return filesActions.delete(id)
+            .then(r => {
+                this.getDirectories()
+            });
+    }
+
+    @action.bound
+    public getDirectoryItems(id: string)
+    {
+        return filesActions.getDirectoryItems(id)
+            .then(r => {
+                const dir = this.Directories.find(i => i.name === id);
+                if(dir) {
+                    dir.files = r.files;
+                    dir.subDirectories = r.directories;
+                }
+            });
+    }
 }
 
-const filesStoreSingleton = new FilesStore();
-export default filesStoreSingleton;
+export default FilesStore

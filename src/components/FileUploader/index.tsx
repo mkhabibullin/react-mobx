@@ -96,7 +96,7 @@ class FileUploader extends React.Component<any,any> {
                 <i className="icon icon-upload" 
                     style={{ color: iconColor }}></i>
                     {/* accept="image/*" */}
-                <input type="file" onChange={this.onFileChange.bind(this)} ref="input" />
+                <input type="file" onChange={this.onFileChange.bind(this)} ref="input" multiple />
             </label>
         );
     }

@@ -1,0 +1,13 @@
+.card .break-line {
+    height: 1px;
+    background-color: #61dafb
+}
+
+.card .card__sub-directories {
+    font-size: 10px;
+    color: cadetblue
+}
+.card .card__files {
+    font-size: 10px;
+    color: gray
+}

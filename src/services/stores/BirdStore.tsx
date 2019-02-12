@@ -14,11 +14,5 @@ export class BirdStore {
         return this.birds.length;
     }
 }
-  
 
-const birdsStoreSingleton = new BirdStore();
-export default birdsStoreSingleton;
-
-autorun(() => {
-    console.log(`${birdsStoreSingleton.birds.length}`)
-  })
+export default BirdStore

@@ -21,6 +21,19 @@ class FileActions {
             }
         });
     }
+
+    public static delete(id: string): Promise<any> {
+        return axios.delete(`${AppConfig.ApiUrl}/files/${id}`);
+    }
+
+    public static getDirectoryItems(id: string): Promise<any> {
+        const path: string = `${AppConfig.ApiUrl}/files/${id}/items`;
+
+        return axios.get(path)
+            .then((resp) => {
+                return resp.data.result;
+            });
+    }
 }
 
 export default FileActions
