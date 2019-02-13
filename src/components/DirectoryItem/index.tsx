@@ -24,14 +24,6 @@ class DirectoryItem extends Component<DirectoryItemProps, DirectoryItemState> {
         this.state = { itemsIsShowed : false }
     }
 
-    componentDidMount() {
-        console.log("Mounted");
-    }
-
-    componentDidUpdate(){
-        console.log("Updated");
-    }
-
     onDelete(name: string) {
         if (confirm(`Delete ${name}?`)) this.props.delete(name);
     }
