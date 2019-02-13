@@ -37,7 +37,7 @@ class DirectoryItem extends Component<DirectoryItemProps, DirectoryItemState> {
         const { name, date, files, subDirectories } = this.props.item;
         return (
             <article className="card">
-                {date.toLocaleDateString()} <b>{date.getHours()}:{date.getMinutes()}</b>
+                {date.toLocaleDateString()} <b>{date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}</b>
                 <p>{name}</p>
                 <a className="App-link" onClick={this.onDelete.bind(this, name)}>X</a>
                 {!this.state.itemsIsShowed && <a className="App-link" onClick={this.onShow.bind(this, name)}>show items</a>}

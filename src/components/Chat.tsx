@@ -28,7 +28,7 @@ class Chat extends Component<any, any> {
             .then(() => console.log('Connection started!'))
             .catch(err => console.log('Error while establishing connection :('));
     
-          this.state.hubConnection.start().catch(err => console.error(err.toString()));
+          // this.state.hubConnection.start().catch(err => console.error(err.toString()));
 
             this.state.hubConnection.on('send', (nick, receivedMessage) => {
               const text = `${nick}: ${receivedMessage}`;
