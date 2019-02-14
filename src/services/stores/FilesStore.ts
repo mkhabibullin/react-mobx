@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, runInAction } from "mobx";
 import filesActions from '../actions/FileActions';
 import DirectoryItemModel from "../../Models/DirectoryItemModel";
 
@@ -10,7 +10,7 @@ class FilesStore {
     public getDirectories(): Promise<any> {
         return filesActions.getDirectories()
             .then(r => {
-                this.Directories = r.map(d => new DirectoryItemModel(d.name, new Date(d.createdAt)));
+                runInAction(() => this.Directories = r.map(d => new DirectoryItemModel(d.name, new Date(d.createdAt))));
             });
     }
 
@@ -39,8 +39,10 @@ class FilesStore {
             .then(r => {
                 const dir = this.Directories.find(i => i.name === id);
                 if(dir) {
-                    dir.files = r.files;
-                    dir.subDirectories = r.directories;
+                    runInAction(() => {                        
+                        dir.files = r.files;
+                        dir.subDirectories = r.directories;
+                    });
                 }
             });
     }

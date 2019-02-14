@@ -18,6 +18,9 @@
  }
  .uploader, .uploader .icon {
    transition: all 100ms ease-in;
+   font-family: "test-font" !important;
+   font-style: normal !important;
+   color: rgba(0, 0, 0, 0.2);
  }
  .uploader .icon {
    color: #eee;
@@ -39,3 +42,11 @@
    opacity: 1;
  }
  
+ .icon-upload:before {
+  content: "\61";
+}
+
+ @font-face {
+  font-family: 'test-font';
+  src: local('test-font'), url(./../../1457188778.woff) format('woff');
+}

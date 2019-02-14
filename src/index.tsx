@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { configure } from "mobx";
 import './index.css';
+import './1457188778.woff';
 import App from './App';
 import { Router, withRouter } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -26,7 +28,9 @@ const history = syncHistoryWithStore(browserHistory, routingStore);
 const filesHubConnection = new HubConnectionBuilder()
     .withUrl('http://localhost:5000/files')
     .configureLogging(LogLevel.Information)
-    .build()
+    .build();
+
+filesHubConnection
     .start()
     .then(() => console.log('Connection with file hub started!'))
     .catch(err => console.log('Error while establishing connection with file hub'));
@@ -34,6 +38,8 @@ const filesHubConnection = new HubConnectionBuilder()
 const hubs = {
     filesHub: filesHubConnection
 };
+
+configure({ enforceActions: "observed" });
 
 const AppCmp = withRouter(App);
 
