@@ -31,7 +31,7 @@ class FileActions {
 
         return axios.get(path)
             .then((resp) => {
-                return resp.data.result;
+                return resp.data;
             });
     }
 }
