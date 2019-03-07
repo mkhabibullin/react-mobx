@@ -3,9 +3,9 @@ var Service = require('node-windows').Service;
 
 // Create a new service object
 var svc = new Service({
-  name:'React Mobx Web app service 2',
+  name:'React Mobx web app',
   description: 'The nodejs.org example web server.',
-  script: 'C:\\Projects\\react-mobx\\scripts\\server.js',//require('path').join(__dirname, 'server.js'),
+  script: require('path').join(__dirname, 'server.js'),
   nodeOptions: [
     '--harmony',
     '--max_old_space_size=4096'
