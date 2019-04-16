@@ -19,8 +19,8 @@ app.all("/api/*", function(req, res) {
 });
 
 https.createServer({
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem'),
   passphrase: '143265398'
 }, app)
 .listen(80);
