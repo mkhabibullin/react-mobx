@@ -11,11 +11,15 @@ import BirdStore from '../src/services/stores/BirdStore';
 import { Provider } from 'mobx-react';
 import FilesStore from './services/stores/FilesStore';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import ReactGA from 'react-ga';
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
 const filesStore = new FilesStore();
 const birdsStore = new BirdStore();
+
+ReactGA.initialize('UA-140001613-1');
+ReactGA.pageview('/');
 
 const stores = {
   routing: routingStore,

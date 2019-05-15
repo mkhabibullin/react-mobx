@@ -13,6 +13,7 @@ class App extends Component<any, any> {
           <Link to='/' className="App-link">Home</Link>
           <Link to='/birds' className="App-link">Birds</Link>
           <Link to='/files' className="App-link">Files</Link>
+          <Link to='/GA' className="App-link">GA</Link>
           <GlobalNavigation></GlobalNavigation>
         </div>
     );
