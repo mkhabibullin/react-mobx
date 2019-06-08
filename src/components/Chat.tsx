@@ -18,7 +18,7 @@ class Chat extends Component<any, any> {
     
         // const hubConnection = new HubConnection('http://localhost:5000/chat');
         const hubConnection = new HubConnectionBuilder()
-            .withUrl('http://localhost:5000/chat')
+            .withUrl('http://localhost:5002/chat')
             .configureLogging(LogLevel.Information)
             .build();
     
