@@ -18,7 +18,7 @@ class Chat extends Component<any, any> {
     
         // const hubConnection = new HubConnection('http://localhost:5000/chat');
         const hubConnection = new HubConnectionBuilder()
-            .withUrl('http://i2x2.net/ws/chat')
+            .withUrl('https://i2x2.net/ws/chat')
             .configureLogging(LogLevel.Information)
             .build();
     

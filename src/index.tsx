@@ -30,7 +30,7 @@ const stores = {
 const history = syncHistoryWithStore(browserHistory, routingStore);
     
 const filesHubConnection = new HubConnectionBuilder()
-    .withUrl('http://i2x2.net/ws/files')
+    .withUrl('https://i2x2.net/ws/files')
     .configureLogging(LogLevel.Information)
     .build();
 
