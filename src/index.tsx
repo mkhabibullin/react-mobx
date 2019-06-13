@@ -30,7 +30,7 @@ const stores = {
 const history = syncHistoryWithStore(browserHistory, routingStore);
     
 const filesHubConnection = new HubConnectionBuilder()
-    .withUrl('http://localhost:5000/files')
+    .withUrl('http://localhost/ws/files')
     .configureLogging(LogLevel.Information)
     .build();
 
