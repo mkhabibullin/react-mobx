@@ -17,7 +17,11 @@ try {
   const cert = config.get('CertPath');
   console.log('config: ', config);
   
-  fs.writeFile(config.get('LogPath'), config);
+  fs.writeFile(config.get('LogPath'), config, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+  });
 
   app.all("/api/*", function(req, res) {
     apiProxy.web(req, res, {
