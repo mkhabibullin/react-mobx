@@ -2,6 +2,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 const express = require('express');
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const app = express();
@@ -46,14 +47,16 @@ try {
     res.sendFile(path.join(__dirname, '../', 'build', 'index.html'));
   });
 
-  var httpServer = require('http').createServer(app);
+  let httpServer;
 
   if (process.env.NODE_ENV === 'production') {    
     // set up a route to redirect http to https
-    httpServer.get('*', function(req, res) {  
-      res.redirect('https://' + req.headers.host + req.url);
+    httpServer = http.createServer(function (req, res) {
+      res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+      res.end();
     });
   } else {
+    httpServer = http.createServer(app);
     // Proxy websockets
     httpServer.on('upgrade', function (req, socket, head) {
       apiProxy.ws(req, socket, head, { target: ocelotWs });
@@ -62,7 +65,7 @@ try {
   httpServer.listen(80);
   
 
-  var httpsServer = https.createServer({
+  const httpsServer = https.createServer({
     pfx: fs.readFileSync(cert),
   }, app);
 
