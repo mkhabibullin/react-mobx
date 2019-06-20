@@ -1,3 +1,5 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
