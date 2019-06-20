@@ -1,0 +1,7 @@
+{
+    "Ocelot": {
+        "BaseUrl": "localhost:5000"
+    },
+    "LogPath": "C://logs/react-app-server",
+    "CertPath": ""
+}

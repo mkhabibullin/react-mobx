@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import { HubConnection } from '@aspnet/signalr';
+import { inject, observer } from 'mobx-react';
 
+@inject("chatHub")
 class Chat extends Component<any, any> {
     constructor(props) {
         super(props);
@@ -16,19 +18,9 @@ class Chat extends Component<any, any> {
       componentDidMount = () => {
         const nick = window.prompt('Your name:', 'John');
     
-        // const hubConnection = new HubConnection('http://localhost:5000/chat');
-        const hubConnection = new HubConnectionBuilder()
-            .withUrl('https://i2x2.net/ws/chat')
-            .configureLogging(LogLevel.Information)
-            .build();
-    
-        this.setState({ hubConnection, nick }, () => {
-          this.state.hubConnection
-            .start()
-            .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));
+        this.setState({ nick }, () => {
 
-            this.state.hubConnection.on('send', (nick, receivedMessage) => {
+            this.chatHub.on('send', (nick, receivedMessage) => {
               const text = `${nick}: ${receivedMessage}`;
               const messages = this.state.messages.concat([text]);
               this.setState({ messages })})
@@ -37,11 +29,13 @@ class Chat extends Component<any, any> {
       };
     
       sendMessage = () => {
-        this.state.hubConnection
+        this.chatHub
           .invoke('send', this.state.nick, this.state.message)
           .catch(err => console.error(err));    
           this.setState({message: ''});
       };
+      
+      get chatHub(): HubConnection { return this.props['chatHub']; }
     
       render() {
         return (

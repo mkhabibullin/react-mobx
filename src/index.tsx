@@ -4,13 +4,13 @@ import { configure } from "mobx";
 import './index.css';
 import './1457188778.woff';
 import App from './App';
+import buildHub from './services/signalR';
 import { Router, withRouter } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import BirdStore from '../src/services/stores/BirdStore';
 import { Provider } from 'mobx-react';
 import FilesStore from './services/stores/FilesStore';
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import ReactGA from 'react-ga';
 
 const browserHistory = createBrowserHistory();
@@ -28,19 +28,10 @@ const stores = {
 };
 
 const history = syncHistoryWithStore(browserHistory, routingStore);
-    
-const filesHubConnection = new HubConnectionBuilder()
-    .withUrl('https://i2x2.net/ws/files')
-    .configureLogging(LogLevel.Information)
-    .build();
-
-filesHubConnection
-    .start()
-    .then(() => console.log('Connection with file hub started!'))
-    .catch(err => console.log('Error while establishing connection with file hub'));
 
 const hubs = {
-    filesHub: filesHubConnection
+    filesHub: buildHub('files'),
+    chatHub: buildHub('chat')
 };
 
 configure({ enforceActions: "observed" });

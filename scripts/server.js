@@ -4,15 +4,18 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const httpProxy = require('http-proxy');
+const config = require('config');
 
 try {
+
   app.use(express.static(path.join(__dirname, '../', 'build')));
 
   const apiProxy = httpProxy.createProxyServer();
-  const ocelotBase = 'localhost:5000';
+  const ocelotBase = config.get('Ocelot.BaseUrl');
   const ocelotHttp = `http://${ocelotBase}`;
   const ocelotWs = `ws://${ocelotBase}`;
-  const cert = 'C://certs/cdf3d6bb-2f8f-4a6a-af8d-db6c7509d681.pfx';
+  const cert = config.get('CertPath');
+  console.log('config: ', config);
 
   app.all("/api/*", function(req, res) {
     apiProxy.web(req, res, {
@@ -35,13 +38,20 @@ try {
     res.sendFile(path.join(__dirname, '../', 'build', 'index.html'));
   });
 
-  var server = require('http').createServer(app);
+  var httpServer = require('http').createServer(app);
 
-  // Proxy websockets
-  server.on('upgrade', function (req, socket, head) {
-    apiProxy.ws(req, socket, head, { target: ocelotWs });
-  });
-  server.listen(80);
+  if (process.env.NODE_ENV === 'production') {    
+    // set up a route to redirect http to https
+    httpServer.get('*', function(req, res) {  
+      res.redirect('https://' + req.headers.host + req.url);
+    });
+  } else {
+    // // Proxy websockets
+    // httpServer.on('upgrade', function (req, socket, head) {
+    //   apiProxy.ws(req, socket, head, { target: ocelotWs });
+    // });
+  }
+  httpServer.listen(80);
   
 
   var httpsServer = https.createServer({
@@ -57,7 +67,7 @@ try {
   httpsServer.listen(443);
 
 } catch(exc) {
-  fs.writeFile("C://logs/react-app-server", exc, function(err) {
+  fs.writeFile(config.get('LogPath'), exc, function(err) {
     if(err) {
         return console.log(err);
     }
