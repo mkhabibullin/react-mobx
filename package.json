@@ -77,6 +77,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build:dev": "set NODE_ENV=development&& node scripts/build.js",
     "test": "node scripts/test.js",
     "server": "node scripts/server.js",
     "server:dev": "set NODE_ENV=development&& node scripts/server.js",

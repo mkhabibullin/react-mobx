@@ -19,6 +19,7 @@ try {
   const ocelotWs = `ws://${ocelotBase}`;
   const cert = config.get('CertPath');
   console.log('config: ', config);
+  console.log('ENV: ', process.env.NODE_ENV);
   
   fs.writeFile(config.get('LogPath'), config, function(err) {
     if(err) {
