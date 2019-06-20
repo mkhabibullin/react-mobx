@@ -5,7 +5,7 @@ var Service = require('node-windows').Service;
 var svc = new Service({
   name:'React Mobx web app',
   description: 'The nodejs.org example web server.',
-  script: require('path').join(__dirname, 'server.js'),
+  script: 'set NODE_ENV=production&& ' + require('path').join(__dirname, 'server.js'),
   nodeOptions: [
     '--harmony',
     '--max_old_space_size=4096'
