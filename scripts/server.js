@@ -16,6 +16,8 @@ try {
   const ocelotWs = `ws://${ocelotBase}`;
   const cert = config.get('CertPath');
   console.log('config: ', config);
+  
+  fs.writeFile(config.get('LogPath'), config);
 
   app.all("/api/*", function(req, res) {
     apiProxy.web(req, res, {
@@ -71,5 +73,5 @@ try {
     if(err) {
         return console.log(err);
     }
-  }); 
+  });
 }
