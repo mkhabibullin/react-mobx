@@ -46,10 +46,10 @@ try {
       res.redirect('https://' + req.headers.host + req.url);
     });
   } else {
-    // // Proxy websockets
-    // httpServer.on('upgrade', function (req, socket, head) {
-    //   apiProxy.ws(req, socket, head, { target: ocelotWs });
-    // });
+    // Proxy websockets
+    httpServer.on('upgrade', function (req, socket, head) {
+      apiProxy.ws(req, socket, head, { target: ocelotWs });
+    });
   }
   httpServer.listen(80);
   
