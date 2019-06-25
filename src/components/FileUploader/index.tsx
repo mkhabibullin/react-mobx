@@ -75,7 +75,7 @@ class FileUploader extends React.Component<any,any> {
     render() {
         let state = this.state,
             props = this.props,
-            labelClass  = `uploader ${state.loaded && 'loaded'}`,
+            labelClass  = `uploader ${state.loaded ? 'loaded' : undefined}`,
             borderColor = state.active ? props.activeColor : props.baseColor,
             iconColor   = state.active 
                 ? props.activeColor
@@ -92,7 +92,7 @@ class FileUploader extends React.Component<any,any> {
                 onDrop={this.onDrop}
                 style={{outlineColor: borderColor}}>
                 
-                <img src={state.imageSrc} className={state.loaded && 'loaded'}/>
+                <img src={state.imageSrc} className={state.loaded ? 'loaded' : undefined}/>
                 <i className="icon icon-upload" 
                     style={{ color: iconColor }}></i>
                     {/* accept="image/*" */}

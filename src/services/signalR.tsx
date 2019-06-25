@@ -1,11 +1,10 @@
 import { HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 
 const buildHub = function(hubName: string) {
-    const url = process.env.REACT_APP_API;
-    const wsPrefix = process.env.REACT_APP_WS_PREFIX;
+    const url = process.env.REACT_APP_WS;
 
     const hubConnection = new HubConnectionBuilder()
-        .withUrl(`${url}${wsPrefix || ''}/${hubName}`)
+        .withUrl(`${url}/${hubName}`)
         .configureLogging(LogLevel.Information)
         .build();
 

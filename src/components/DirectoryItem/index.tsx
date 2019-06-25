@@ -43,7 +43,7 @@ class DirectoryItem extends Component<DirectoryItemProps, DirectoryItemState> {
                 {!this.state.itemsIsShowed && <a className="App-link" onClick={this.onShow.bind(this, name)}>show items</a>}
                 {this.state.itemsIsShowed && <p className='break-line'/>}
                 {subDirectories && subDirectories.map(sd => <div className={'card__sub-directories'}>{sd.name}</div>)}
-                {files && files.map(f => <div className={'card__files'}>{f.name}</div>)}
+                {files && files.map((f, idx) => <div key={idx} className={'card__files'}>{f.name}</div>)}
             </article>
         );
     }

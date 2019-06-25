@@ -15,7 +15,7 @@ class DirectoryItemsList extends Component<DirectoryItemsListProps> {
         return (
             <div className="centered">
                 <section className="cards">
-                    {Items.length > 0 && Items.map(i => <DirectoryItem item={i} {...actions}/>)}
+                    {Items.length > 0 && Items.map((i, idx) => <DirectoryItem key={idx} item={i} {...actions}/>)}
                 </section>
             </div>
         );
