@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { RouteComponentProps } from 'react-router';
-import FilesStore from '../services/stores/FilesStore';
+import FilesStore from '../../services/stores/FilesStore';
 import { inject, observer } from 'mobx-react';
-import FileUploader from '../components/FileUploader/index';
-import DirectoryItem from '../components/DirectoryItem';
-import DirectoryItemsList from '../components/DirectoryItemsList';
+import FilesUploader from './FilesUploader/index';
+import FilesDirectoryItemsList from './FilesDirectoryItemsList';
 import { HubConnection } from '@aspnet/signalr';
 import { autorun } from 'mobx';
 
@@ -21,7 +19,7 @@ export interface FilesState {
 @inject("filesStore")
 @inject("filesHub")
 @observer
-class FileUploaderApp extends Component<FilesProps, FilesState> {
+class Files extends Component<FilesProps, FilesState> {
 
     autorunDisposal = autorun(() => {
         console.log('Directories length is changed');
@@ -50,13 +48,13 @@ class FileUploaderApp extends Component<FilesProps, FilesState> {
     render() {
         return (
             <div>
-                <DirectoryItemsList Items={this.store.Directories}
+                <FilesDirectoryItemsList Items={this.store.Directories}
                     delete={this.store.delete}
                     getDirectoryItems={this.store.getDirectoryItems}/>
-                <FileUploader activeColor={'green'} baseColor={"gray"} overlayColor={"rgba(255,255,255,0.3)"} />
+                <FilesUploader activeColor={'green'} baseColor={"gray"} overlayColor={"rgba(255,255,255,0.3)"} />
             </div>
         );
     }
 }
 
-export default FileUploaderApp;
+export default Files;

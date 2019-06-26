@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router';
 import Chat from '../components/Chat';
 import Birds from '../components/Birds';
-import FileUploaderApp from '../containers/FileUploaderApp';
-import GA from '../components/GA/index';
+import Files from '../components/Files';
+import GA from '../components/GA';
 
 
 class GlobalNavigation extends React.Component {
@@ -12,7 +12,7 @@ class GlobalNavigation extends React.Component {
             <Switch>                
                 <Route exact path="/" component={Chat} />
                 <Route exact path="/birds" component={Birds} />
-                <Route path="/files" component={FileUploaderApp} />
+                <Route path="/files" component={Files} />
                 <Route path="/GA" component={GA} />
             </Switch>
         );

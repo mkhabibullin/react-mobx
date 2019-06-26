@@ -48,5 +48,5 @@
 
  @font-face {
   font-family: 'test-font';
-  src: local('test-font'), url(./../../1457188778.woff) format('woff');
+  src: local('test-font'), url(./../../../1457188778.woff) format('woff');
 }

@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-export class DirectoryItemModel {
+export class FilesDirectoryItemModel {
     
   public name: string;
   public date: Date;
@@ -14,4 +14,4 @@ export class DirectoryItemModel {
   }
 }
 
-export default DirectoryItemModel;
+export default FilesDirectoryItemModel;

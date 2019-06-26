@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-import DirectoryItemModel from '../../Models/DirectoryItemModel';
+import FilesDirectoryItemModel from '../Models/FilesDirectoryItemModel';
 import { observer } from 'mobx-react';
 import './style.css'
 
-export interface DirectoryItemActions {
+export interface FilesDirectoryItemActions {
     delete: (id: string) => any;
     getDirectoryItems: (id: string) => any;
   }
 
-export interface DirectoryItemProps extends DirectoryItemActions {
-    item: DirectoryItemModel
+export interface FilesDirectoryItemProps extends FilesDirectoryItemActions {
+    item: FilesDirectoryItemModel
 }
 
-export interface DirectoryItemState {
+export interface FilesDirectoryItemState {
     itemsIsShowed: boolean;
 }
 
 @observer
-class DirectoryItem extends Component<DirectoryItemProps, DirectoryItemState> {
+class FilesDirectoryItem extends Component<FilesDirectoryItemProps, FilesDirectoryItemState> {
 
-    constructor(props?: DirectoryItemProps, context?: any) {
+    constructor(props?: FilesDirectoryItemProps, context?: any) {
         super(props, context);
         this.state = { itemsIsShowed : false }
     }
@@ -49,4 +49,4 @@ class DirectoryItem extends Component<DirectoryItemProps, DirectoryItemState> {
     }
 }
 
-export default DirectoryItem
+export default FilesDirectoryItem

@@ -16,7 +16,7 @@ export interface FilesProps extends RouteComponentProps<any> {
 // }
 
 @inject("filesStore")
-class FileUploader extends React.Component<any,any> {
+class FilesUploader extends React.Component<any,any> {
     constructor(props: FilesProps) {
         super(props);
         
@@ -102,4 +102,4 @@ class FileUploader extends React.Component<any,any> {
     }
 }
 
-export default FileUploader
+export default FilesUploader

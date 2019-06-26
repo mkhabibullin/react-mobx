@@ -1,16 +1,16 @@
 import { action, observable, runInAction } from "mobx";
 import filesActions from '../actions/FileActions';
-import DirectoryItemModel from "../../Models/DirectoryItemModel";
+import FilesDirectoryItemModel from "../../components/Files/Models/FilesDirectoryItemModel";
 
 class FilesStore {
 
-    @observable public Directories: Array<DirectoryItemModel> = new Array<DirectoryItemModel>();
+    @observable public Directories: Array<FilesDirectoryItemModel> = new Array<FilesDirectoryItemModel>();
 
     @action.bound
     public getDirectories(): Promise<any> {
         return filesActions.getDirectories()
             .then(r => {
-                runInAction(() => this.Directories = r.map(d => new DirectoryItemModel(d.name, new Date(d.createdAt))));
+                runInAction(() => this.Directories = r.map(d => new FilesDirectoryItemModel(d.name, new Date(d.createdAt))));
             });
     }
 
