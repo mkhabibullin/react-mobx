@@ -73,29 +73,26 @@ try {
   httpsServer.listen(443);
 
 } catch(exc) {
-  fs.writeFile(config.get('LogPath'), exc, function(err) {
-    if(err) {
-        return console.log(err);
-    }
-  });
+  log(exc);
 }
 
 function getCert(certPath) {
-
   let cert, mtime;
+  let files = fs.readdirSync(certPath);
 
-  fs.readdir(certPath, (err, files) => {
-    files.forEach(file => {
-      console.log(file);
-      fs.stat(file, function(err, stats){
-        if(!mtime || mtime < stats.mtime) {
-          mtime = stats.mtime;
-          cert = file;
-        }
-        console.log(mtime);
-    });
-    });
+  files.forEach(file => {
+    const filePath = path.join(certPath, file);
+    const stats = fs.statSync(filePath);
+
+    if (!mtime || mtime < stats.mtime) {
+      mtime = stats.mtime;
+      cert = filePath;
+    }
   });
-
+  
   return fs.readFileSync(cert);
+}
+
+function log(data) {
+	fs.appendFileSync(config.get('LogPath'), data + '\n');
 }
