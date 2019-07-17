@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.module.css';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import GlobalNavigation from './router/GlobalNavigation';
@@ -9,11 +9,11 @@ import GlobalNavigation from './router/GlobalNavigation';
 class App extends Component<any, any> {
   render() {
     return (
-        <div className="App">
-          <Link to='/' className="App-link">Home</Link>
-          <Link to='/birds' className="App-link">Birds</Link>
-          <Link to='/files' className="App-link">Files</Link>
-          <Link to='/GA' className="App-link">GA</Link>
+        <div className={styles.app}>
+          <Link to='/' className={styles.link}>Home</Link>
+          <Link to='/birds' className={styles.link}>Birds</Link>
+          <Link to='/files' className={styles.link}>Files</Link>
+          <Link to='/GA' className={styles.link}>GA</Link>
           <GlobalNavigation></GlobalNavigation>
         </div>
     );

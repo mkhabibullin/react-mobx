@@ -18,7 +18,7 @@ try {
   const ocelotBase = config.get('Ocelot.BaseUrl');
   const ocelotHttp = `http://${ocelotBase}`;
   const ocelotWs = `ws://${ocelotBase}`;
-  const cert = config.get('CertPath');
+  const cert = getCert(config.get('CertPath'));
 
   console.log('config: ', config);
   console.log('ENV: ', process.env.NODE_ENV);
@@ -27,7 +27,7 @@ try {
     apiProxy.web(req, res, {
         target: ocelotHttp,
         ws:true,
-				ssl: { pfx: fs.readFileSync(cert) },
+				ssl: { pfx: cert },
         secure: true
 				});
   });
@@ -35,7 +35,7 @@ try {
     apiProxy.web(req, res, {
         target: ocelotHttp,
         ws:true,
-				ssl: { pfx: fs.readFileSync(cert) },
+				ssl: { pfx: cert },
         secure: true
 				});
   });
@@ -62,7 +62,7 @@ try {
   httpServer.listen(80);  
 
   const httpsServer = https.createServer({
-    pfx: fs.readFileSync(cert),
+    pfx: cert,
   }, app);
   
   // Proxy websockets
@@ -78,4 +78,24 @@ try {
         return console.log(err);
     }
   });
+}
+
+function getCert(certPath) {
+
+  let cert, mtime;
+
+  fs.readdir(certPath, (err, files) => {
+    files.forEach(file => {
+      console.log(file);
+      fs.stat(file, function(err, stats){
+        if(!mtime || mtime < stats.mtime) {
+          mtime = stats.mtime;
+          cert = file;
+        }
+        console.log(mtime);
+    });
+    });
+  });
+
+  return fs.readFileSync(cert);
 }
