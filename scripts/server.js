@@ -70,6 +70,14 @@ try {
     apiProxy.ws(req, socket, head, { target: ocelotWs });
   });
 
+  httpsServer.on('error', function (err, req, res) {
+    res.writeHead(500, {
+      'Content-Type': 'text/plain'
+    });
+  
+    res.end('Something went wrong');
+  });
+
   httpsServer.listen(443);
 
 } catch(exc) {
