@@ -33,13 +33,17 @@ var apm = initApm({
   // Set service version (required for sourcemap feature)
   serviceVersion: '1'
 });
-apm.captureError(new Error('Test 4'));
+apm.captureError(new Error('Test error in index'));
 
 const stores = {
   routing: routingStore,
   birdsStore: birdsStore,
   filesStore: filesStore
 };
+
+const logger = {
+  logger: apm,
+}
 
 const history = syncHistoryWithStore(browserHistory, routingStore);
 
@@ -53,7 +57,7 @@ configure({ enforceActions: "observed" });
 const AppCmp = withRouter(App);
 
 ReactDOM.render(
-    <Provider {...stores} {...hubs}>
+    <Provider {...stores} {...hubs} {...logger}>
         <Router history={history}>
             <AppCmp />
         </Router>

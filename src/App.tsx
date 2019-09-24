@@ -11,9 +11,6 @@ class App extends Component<any, any> {
     return (
         <div className={styles.app}>
           <Link to='/' className={styles.link}>Home</Link>
-          <Link to='/birds' className={styles.link}>Birds</Link>
-          <Link to='/files' className={styles.link}>Files</Link>
-          <Link to='/GA' className={styles.link}>GA</Link>
           <GlobalNavigation></GlobalNavigation>
         </div>
     );
