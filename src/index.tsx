@@ -21,6 +21,20 @@ const birdsStore = new BirdStore();
 ReactGA.initialize('UA-140001613-1');
 ReactGA.pageview('/');
 
+import { init as initApm } from '@elastic/apm-rum'
+var apm = initApm({
+
+  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+  serviceName: 'react app - test',
+
+  // Set custom APM Server URL (default: http://localhost:8200)
+  serverUrl: 'http://localhost:8200',
+
+  // Set service version (required for sourcemap feature)
+  serviceVersion: '1'
+});
+apm.captureError(new Error('Test 4'));
+
 const stores = {
   routing: routingStore,
   birdsStore: birdsStore,

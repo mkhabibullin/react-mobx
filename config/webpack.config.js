@@ -9,6 +9,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ElasticAPMSourceMapPlugin = require('elastic-apm-sourcemap-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
@@ -172,34 +174,72 @@ module.exports = function(webpackEnv) {
     optimization: {
       minimize: isEnvProduction,
       minimizer: [
+        // new webpack.optimize.UglifyJsPlugin({
+        //   sourceMap: true,
+        //   compress: {
+        //     warnings: false,
+        //     screw_ie8: true,
+    
+        //     conditionals: true,
+        //     unused: true,
+        //     dead_code: true,
+        //     comparisons: true,
+        //     sequences: true,
+        //     evaluate: true,
+        //     if_return: true,
+        //   },
+        // }),
+        // new UglifyJsPlugin({
+        //   sourceMap: false,
+        //   compress: {
+        //     warnings: false,
+        //     screw_ie8: true,
+
+        //     conditionals: true,
+        //     unused: true,
+        //     dead_code: true,
+        //     comparisons: true,
+        //     sequences: true,
+        //     evaluate: true,
+        //     if_return: true,
+        //     }}),
         // This is only used in production mode
-        new TerserPlugin({
-          terserOptions: {
-            parse: {ecma: 8,
-            },
-            compress: {
-              ecma: 5,
-              warnings: true,
-              comparisons: true,
-              inline: 2,
-            },
-            mangle: {
-              safari10: true,
-            },
+        new TerserPlugin(
+          // {
+          //   minify: (file, sourceMap) => {
+          //     const extractedComments = [];
+    
+          //     // Custom logic for extract comments
+    
+          //     const { error, map, code, warnings } = require('uglify-module') // Or require('./path/to/uglify-module')
+          //       .minify(file, {
+          //         /* Your options for minification */
+          //       });
+    
+          //     return { error, map, code, warnings, extractedComments };
+          //   },
+          // }
+          {
+            cache: true,
+            parallel: true,
+            terserOptions: {
+              compress: {
+                dead_code: true,
+                conditionals: true,
+                booleans: true
+            }, 
+            module: false,
             output: {
-              ecma: 5,
               comments: false,
-              // Turned on because emoji and regex is not minified properly using default
-              // https://github.com/facebook/create-react-app/issues/2488
-              ascii_only: true,
-            },
-          },
-          // Use multi-process parallel running to improve the build speed
-          // Default number of concurrent runs: os.cpus().length - 1
-          parallel: true,
-          // Enable file caching
-          cache: true,
-          sourceMap: shouldUseSourceMap,
+              beautify: false,
+            }},
+            sourceMap: true
+          }
+        ),
+        new webpack.SourceMapDevToolPlugin({
+          filename: '[file].map',
+          publicPath: 'http://localhost/',
+          fileContext: 'public'
         }),
         // This is only used in production mode
         new OptimizeCSSAssetsPlugin({
@@ -216,6 +256,13 @@ module.exports = function(webpackEnv) {
                 }
               : false,
           },
+        }),
+        new ElasticAPMSourceMapPlugin({
+          serviceName: 'react app - test',
+          serviceVersion: '1',
+          serverURL: 'http://127.0.0.1:8200/assets/v1/sourcemaps',
+          publicPath: 'http://localhost/',
+          logLevel: 'debug'
         }),
       ],
       // Automatically split vendor and commons
